@@ -27,6 +27,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// we need hotpot/lib.php for the callback validation functions
+require_once($CFG->dirroot.'/mod/hotpot/lib.php');
+
 // admin_setting_xxx classes are defined in "lib/adminlib.php"
 // new admin_setting_configcheckbox($name, $visiblename, $description, $defaultsetting);
 
@@ -89,6 +92,6 @@ $settings->add(
 );
 
 // maximum duration of a single calendar event (default=5 mins)
-$settings->add(
-    new admin_setting_configtext('hotpot_maxeventlength', get_string('maxeventlength', 'hotpot'), get_string('configmaxeventlength', 'hotpot'), 5, PARAM_INT, 4)
-);
+$setting = new admin_setting_configtext('hotpot_maxeventlength', get_string('maxeventlength', 'hotpot'), get_string('configmaxeventlength', 'hotpot'), 5, PARAM_INT, 4);
+$setting->set_updatedcallback('hotpot_refresh_events');
+$settings->add($setting);

@@ -28,7 +28,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version  = 2010080329;
-$module->release  = 'v3.0.29';
-$module->requires = 2010080300;  // Requires this Moodle version
-//$module->cron     = 60;
+$module->cron      = 0;
+$module->component = 'mod_hotpot';
+$module->maturity  = MATURITY_STABLE; // = 200
+$module->release   = 'v3.0.41';
+$module->requires  = 2010112400; // Moodle 2.0
+$module->version   = 2010080341;

@@ -798,7 +798,7 @@ class mod_hotpot_attempt_renderer extends mod_hotpot_renderer {
             $title .= ' ('.$this->sortorder.')';
         }
 
-        $textlib = textlib_get_instance();
+        $textlib = hotpot_get_textlib();
         $title = $textlib->utf8_to_entities($title);
 
         return $title;
@@ -1206,17 +1206,19 @@ class mod_hotpot_attempt_renderer extends mod_hotpot_renderer {
         // define which attributes of which HTML tags to search for URLs
         $tags = array(
             // tag  =>  attribute containing url
-            'script' => 'src',
-            'link'   => 'href',
             'a'      => 'href',
             'area'   => 'href', // <area href="sun.htm" ... shape="..." coords="..." />
-            'img'    => 'src',
-            'param'  => 'value',
-            'object' => 'data',
             'embed'  => 'src',
+            'iframe' => 'src',
+            'img'    => 'src',
             'input'  => 'src', // <input type="image" src="..." >
-            '[a-z]+' => 'style',
-            '(?:table|th|td)' => 'background'
+            'link'   => 'href',
+            'object' => 'data',
+            'param'  => 'value',
+            'script' => 'src',
+            'source' => 'src', // HTML5
+            '(?:table|th|td)' => 'background',
+            '[a-z]+' => 'style'
         );
 
         // replace relative URLs in attributes of certain HTML tags
@@ -1251,7 +1253,7 @@ class mod_hotpot_attempt_renderer extends mod_hotpot_renderer {
         $this->bodycontent = preg_replace_callback($search, $callback, $this->bodycontent);
 
         // replace relative URLs in <a ... onclick="window.open('...')...">...</a>
-        $search = '/'.'('.'onclick="'."window.open\('".')'."([^']*)".'('."'\);return false;".'")'.'/is';
+        $search = '/'.'('.'onclick="'."window.open\('".')'."([^']*)".'('."'[^\)]*\);return false;".'")'.'/is';
         $callback = array($this, 'convert_url');
         $this->bodycontent = preg_replace_callback($search, $callback, $this->bodycontent);
     }

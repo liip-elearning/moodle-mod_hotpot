@@ -59,6 +59,8 @@ class mod_hotpot_attempt_hp_6_jcloze_xml_v6_autoadvance_renderer extends mod_hot
      * @return xxx
      */
     function fix_js_StartUp(&$str, $start, $length) {
+        global $CFG;
+
         $substr = substr($str, $start, $length);
 
         $append = '';
