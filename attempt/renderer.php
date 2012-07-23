@@ -1198,6 +1198,7 @@ class mod_hotpot_attempt_renderer extends mod_hotpot_renderer {
         $tagclose = '(?(2)>|(?(3)\\\\u003E|(?(4)&gt;|(?(5)&amp;#x003E;))))'; //  right angle bracket (to match left angle bracket)
 
         $space = '\s+'; // at least one space
+        $equals = '\s*=\s*'; // equals sign (+ white space)
         $anychar = '(?:[^>]*?)'; // any character
 
         $quoteopen = '("|\\\\"|&quot;|&amp;quot;'."|'|\\\\'|&apos;|&amp;apos;".')'; // open quote
@@ -1228,7 +1229,7 @@ class mod_hotpot_attempt_renderer extends mod_hotpot_renderer {
             } else {
                 $url = '.*?';
             }
-            $search = "/($tagopen$tag$space$anychar$attribute=$quoteopen)($url)($quoteclose$anychar$tagclose)/is";
+            $search = "/($tagopen$tag$space$anychar$attribute$equals$quoteopen)($url)($quoteclose$anychar$tagclose)/is";
             if ($attribute=='style') {
                 $callback = array($this, 'convert_urls_css');
             } else {

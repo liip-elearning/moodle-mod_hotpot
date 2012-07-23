@@ -126,7 +126,7 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="attemptid"/>
         <FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="details"/>
-        <FIELD NAME="details" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="attemptid"/>
+        <FIELD NAME="details" TYPE="text" NOTNULL="true" SEQUENCE="false" PREVIOUS="attemptid"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="attemptid"/>
